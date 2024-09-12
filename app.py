@@ -10,7 +10,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 connection = psycopg2.connect(DATABASE_URL, sslmode='verify-full', sslrootcert='root.crt')
 cur = connection.cursor()
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     headers = request.headers
 
