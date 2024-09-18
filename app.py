@@ -19,8 +19,8 @@ def index():
 
     # Atualizar o status da notificação de pagamento para 'PAID'
     try:
-        cur.execute(f"UPDATE notificacoes_pagamento_test SET status='PAID' WHERE id_pix='{id_pix}'")
-        cur.execute(f"SELECT valor, user_id FROM notificacoes_pagamento_test WHERE id_pix='{id_pix}'")
+        cur.execute(f"UPDATE notificacoes_pagamento SET status='PAID' WHERE id_pix='{id_pix}'")
+        cur.execute(f"SELECT valor, user_id FROM notificacoes_pagamento WHERE id_pix='{id_pix}'")
         valor, user_id = cur.fetchone()
         cur.execute(f"SELECT saldo FROM users WHERE user_id='{user_id}'")
         saldo = cur.fetchone()[0]
