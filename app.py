@@ -6,8 +6,14 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
-# Conexão com o banco de dados
-connection = psycopg2.connect(DATABASE_URL, sslmode='verify-full', sslrootcert='root.crt')
+root_cert = os.environ.get('SSL_ROOT_CERT')
+
+with tempfile.NamedTemporaryFile(delete=False) as cert_file:
+    cert_file.write(root_cert.encode('utf-8'))
+    cert_path = cert_file.name
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+connection = psycopg2.connect(DATABASE_URL, sslmode='verify-full', sslrootcert=cert_path)
 cur = connection.cursor()
 
 @app.route('/test', methods=['GET', 'POST'])
